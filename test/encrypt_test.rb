@@ -45,4 +45,8 @@ class EncryptTest < Minitest::Test
 
     assert_equal expected, @encrypt.encrypt
   end
+
+  def test_phrase_breakdown
+    assert_equal "keder ohulw", @encrypt.phrase_encryption
+  end
 end

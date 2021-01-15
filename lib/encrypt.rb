@@ -1,3 +1,5 @@
+require_relative 'cipher'
+
 class Encrypt
   attr_reader :phrase,
               :key,
@@ -31,9 +33,32 @@ class Encrypt
 
   def encrypt
     {
-      encryption: "keder ohulw",
+      encryption: phrase_encryption,
       key: @key,
       date: @date
     }
+  end
+
+  def phrase_encryption
+    count = 0
+    @phrase.split('').reduce("") do |new_phrase, letter|
+      count += 1
+      new_phrase += Cipher.new(letter, shift(count)).encrypt_character
+      count = 0 if count == 4
+      new_phrase
+    end
+  end
+
+  def shift(count)
+    case count
+    when 1
+      a_shift
+    when 2
+      b_shift
+    when 3
+      c_shift
+    when 4
+      d_shift
+    end
   end
 end
