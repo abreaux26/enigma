@@ -15,4 +15,20 @@ class EncryptTest < Minitest::Test
     assert_equal "02715", @encrypt.key
     assert_equal "040895", @encrypt.date
   end
+
+  def test_a_shift
+    assert_equal "02", @encrypt.a_shift
+  end
+
+  def test_b_shift
+    assert_equal "27", @encrypt.b_shift
+  end
+
+  def test_c_shift
+    assert_equal "71", @encrypt.c_shift
+  end
+
+  def test_d_shift
+    assert_equal "15", @encrypt.d_shift
+  end
 end
