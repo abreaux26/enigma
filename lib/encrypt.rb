@@ -1,14 +1,12 @@
 class Encrypt
   attr_reader :phrase,
               :key,
-              :date,
-              :character_set
+              :date
 
   def initialize(phrase, key, date = Date.today.strftime('%d%m%y'))
-    @phrase = phrase
+    @phrase = phrase.downcase
     @key = key
     @date = date
-    @character_set = ("a".."z").to_a << " "
   end
 
   def offset

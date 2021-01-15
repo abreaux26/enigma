@@ -14,7 +14,6 @@ class EncryptTest < Minitest::Test
     assert_equal "hello world", @encrypt.phrase
     assert_equal "02715", @encrypt.key
     assert_equal "040895", @encrypt.date
-    assert_equal ("a".."z").to_a << " ", @encrypt.character_set
   end
 
   def test_offset
