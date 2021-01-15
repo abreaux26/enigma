@@ -16,4 +16,8 @@ class Cipher
   def shift_character_set
    @character_set.rotate(@shift_value).to_a
  end
+ 
+ def encrypt_character
+    shift_character_set[index_of_character]
+  end
 end

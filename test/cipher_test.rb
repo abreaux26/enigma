@@ -28,4 +28,8 @@ class CipherTest < Minitest::Test
      ]
     assert_equal expected, @cipher.shift_character_set
   end
+
+  def test_encrypt_character
+    assert_equal "k", @cipher.encrypt_character
+  end
 end
