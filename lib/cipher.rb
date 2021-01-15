@@ -12,4 +12,8 @@ class Cipher
   def index_of_character
     @character_set.index(@letter)
   end
+
+  def shift_character_set
+   @character_set.rotate(@shift_value).to_a
+ end
 end

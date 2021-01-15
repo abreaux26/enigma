@@ -19,4 +19,13 @@ class CipherTest < Minitest::Test
   def test_index_of_character
     assert_equal 7, @cipher.index_of_character
   end
+
+  def test_shift_character_set
+    expected = [
+      "d", "e", "f", "g", "h", "i", "j", "k", "l",
+      "m", "n", "o", "p", "q", "r", "s", "t", "u",
+      "v", "w", "x", "y", "z", " ", "a", "b", "c"
+     ]
+    assert_equal expected, @cipher.shift_character_set
+  end
 end
