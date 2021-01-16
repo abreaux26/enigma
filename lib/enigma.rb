@@ -1,7 +1,7 @@
 require_relative 'encrypt'
 
 class Enigma
-  def encrypt(message, key = 0, date = Date.today.strftime('%d%m%y')
-    Encrypt.new(message, key, date)
+  def encrypt(message, key = 0, date = Date.today.strftime('%d%m%y'))
+    Encrypt.new(message, key, date).encrypt
   end
 end

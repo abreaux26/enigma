@@ -15,6 +15,14 @@ class Encrypt
     @date = date
   end
 
+  def encrypt
+    {
+      encryption: phrase_encryption,
+      key: @key,
+      date: @date
+    }
+  end
+
   def key
     if @key == 0
       @key = random_number
@@ -41,14 +49,6 @@ class Encrypt
 
   def d_shift
     @key[3..4].to_i + offset[3].to_i
-  end
-
-  def encrypt
-    {
-      encryption: phrase_encryption,
-      key: @key,
-      date: @date
-    }
   end
 
   def phrase_encryption
