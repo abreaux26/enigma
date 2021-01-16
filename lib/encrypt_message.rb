@@ -1,7 +1,7 @@
 require_relative 'cipher'
 require_relative 'randomable'
 
-class Encrypt
+class EncryptMessage
   include Cipher
   include Randomable
 

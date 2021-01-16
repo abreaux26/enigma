@@ -1,13 +1,13 @@
 require './test/test_helper'
-require './lib/encrypt'
+require './lib/encrypt_message'
 
-class EncryptTest < Minitest::Test
+class EncryptMessageTest < Minitest::Test
   def setup
-    @encrypt = Encrypt.new("hello world", "02715", "040895")
+    @encrypt = EncryptMessage.new("hello world", "02715", "040895")
   end
 
   def test_it_exists
-    assert_instance_of Encrypt, @encrypt
+    assert_instance_of EncryptMessage, @encrypt
   end
 
   def test_it_has_readable_attributes
