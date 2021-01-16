@@ -14,6 +14,11 @@ class CipherTest < Minitest::Test
     assert_instance_of MockEncrypt, @encrypt
   end
 
+  def character_set
+    expected = ("a".."z").to_a << " "
+    assert_equal expected, @encrypt.character_set
+  end
+
   def test_index_of_character
     assert_equal 7, @encrypt.index_of_character('h')
   end
