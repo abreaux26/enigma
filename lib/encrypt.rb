@@ -1,16 +1,26 @@
 require_relative 'cipher'
+require_relative 'randomable'
 
 class Encrypt
   include Cipher
+  include Randomable
 
   attr_reader :phrase,
               :key,
               :date
 
-  def initialize(phrase, key, date = Date.today.strftime('%d%m%y'))
+  def initialize(phrase, key, date)
     @phrase = phrase.downcase
     @key = key
     @date = date
+  end
+
+  def key
+    if @key == 0
+      @key = random_number
+    else
+      @key
+    end
   end
 
   def offset
