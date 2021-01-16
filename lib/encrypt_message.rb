@@ -23,12 +23,12 @@ class EncryptMessage
     }
   end
 
-  def key
-    if @key == 0
-      @key = random_number
-    end
-    @_key ||= @key
-  end
+  # def key
+  #   if @key == 0
+  #     @key = random_number
+  #   end
+  #   @_key ||= @key
+  # end
 
   def offset
     (@date.to_i ** 2).to_s[-4..-1]

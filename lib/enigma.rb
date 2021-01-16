@@ -1,8 +1,11 @@
 require_relative 'encrypt_message'
 require_relative 'decrypt_message'
+require_relative 'randomable'
 
 class Enigma
-  def self.encrypt(message, key = 0, date = Date.today.strftime('%d%m%y'))
+  include Randomable
+
+  def self.encrypt(message, key = random_number, date = Date.today.strftime('%d%m%y'))
     EncryptMessage.new(message, key, date).encrypt
   end
 
