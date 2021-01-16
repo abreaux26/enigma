@@ -10,7 +10,7 @@ class DecryptMessage
               :date
 
   def initialize(phrase, key, date)
-    @phrase = phrase.downcase
+    @phrase = phrase
     @key = key
     @date = date
   end
@@ -22,14 +22,7 @@ class DecryptMessage
       date: @date
     }
   end
-
-  def key
-    if @key == 0
-      @key = random_number
-    end
-    @_key ||= @key
-  end
-
+  
   def offset
     (@date.to_i ** 2).to_s[-4..-1]
   end
