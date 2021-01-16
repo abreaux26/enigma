@@ -1,23 +1,17 @@
-class Cipher
-  attr_reader :letter,
-              :shift_value,
-              :character_set
-
-  def initialize(letter, shift_value)
-    @letter = letter
-    @shift_value = shift_value
-    @character_set = ("a".."z").to_a << " "
+module Cipher
+  def character_set
+    ("a".."z").to_a << " "
   end
 
-  def index_of_character
-    @character_set.index(@letter)
+  def index_of_character(letter)
+    character_set.index(letter)
   end
 
-  def shift_character_set
-   @character_set.rotate(@shift_value).to_a
- end
+  def shift_character_set(shift_value)
+   character_set.rotate(shift_value).to_a
+  end
 
- def encrypt_character
-    shift_character_set[index_of_character]
+  def encrypt_character(shift_value, letter)
+    shift_character_set(shift_value)[index_of_character(letter)]
   end
 end

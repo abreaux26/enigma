@@ -1,6 +1,8 @@
 require_relative 'cipher'
 
 class Encrypt
+  include Cipher
+
   attr_reader :phrase,
               :key,
               :date
@@ -43,7 +45,7 @@ class Encrypt
     count = 0
     @phrase.split('').reduce("") do |new_phrase, letter|
       count += 1
-      new_phrase += Cipher.new(letter, shift(count)).encrypt_character
+      new_phrase += encrypt_character(shift(count), letter)
       count = 0 if count == 4
       new_phrase
     end
