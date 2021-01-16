@@ -4,7 +4,6 @@ require './lib/encrypt_message'
 class EncryptMessageTest < Minitest::Test
   def setup
     @encrypt = EncryptMessage.new("hello world", "02715", "040895")
-    @encrypt_default = EncryptMessage.new("hello world")
   end
 
   def test_it_exists
