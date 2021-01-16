@@ -1,14 +1,16 @@
+require_relative 'cipher'
+
 class Encrypt
+  include Cipher
+
   attr_reader :phrase,
               :key,
-              :date,
-              :character_set
+              :date
 
   def initialize(phrase, key, date = Date.today.strftime('%d%m%y'))
-    @phrase = phrase
+    @phrase = phrase.downcase
     @key = key
     @date = date
-    @character_set = ("a".."z").to_a << " "
   end
 
   def offset
@@ -33,9 +35,32 @@ class Encrypt
 
   def encrypt
     {
-      encryption: "keder ohulw",
+      encryption: phrase_encryption,
       key: @key,
       date: @date
     }
+  end
+
+  def phrase_encryption
+    count = 0
+    @phrase.split('').reduce("") do |new_phrase, letter|
+      count += 1
+      new_phrase += encrypt_character(shift(count), letter)
+      count = 0 if count == 4
+      new_phrase
+    end
+  end
+
+  def shift(count)
+    case count
+    when 1
+      a_shift
+    when 2
+      b_shift
+    when 3
+      c_shift
+    when 4
+      d_shift
+    end
   end
 end
