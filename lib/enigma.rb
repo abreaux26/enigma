@@ -1,5 +1,3 @@
-# require_relative 'encrypt_message'
-# require_relative 'decrypt_message'
 require_relative 'translate_message'
 require_relative 'randomable'
 
