@@ -51,12 +51,16 @@ class TranslateMessage
 
   def translate_phrase(shift_type)
     count = 1
-    @phrase.split('').reduce("") do |new_phrase, letter|
+    split_phrase.reduce("") do |new_phrase, letter|
       new_phrase += convert_letter(letter, count, shift_type)
       count = 0 if count == 4
       count += 1
       new_phrase
     end
+  end
+
+  def split_phrase
+    @phrase.split('')
   end
 
   def convert_letter(letter, count, shift_type)

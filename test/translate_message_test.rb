@@ -24,6 +24,14 @@ class TranslateMessageTest < Minitest::Test
     assert_equal "040895", @decrypt.date
   end
 
+  def test_split_phrase
+    expected_encrypt = ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"]
+    expected_decrypt = ["k", "e", "d", "e", "r", " ", "o", "h", "u", "l", "w"]
+
+    assert_equal expected_encrypt, @encrypt.split_phrase
+    assert_equal expected_decrypt, @decrypt.split_phrase
+  end
+
   def test_offset
     assert_equal "1025", @encrypt.offset
   end
