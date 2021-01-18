@@ -1,7 +1,7 @@
-require_relative 'cipher'
+require_relative 'cipherable'
 
 class TranslateMessage
-  include Cipher
+  include Cipherable
 
   attr_reader :phrase,
               :key,
@@ -15,7 +15,7 @@ class TranslateMessage
 
   def encrypt
     {
-      encryption: translate_phrase("encrypt"),
+      encryption: translate_phrase("encrypt"), # pass in split_phrase and type to new module
       key: @key,
       date: @date
     }
@@ -23,64 +23,59 @@ class TranslateMessage
 
   def decrypt
     {
-      decryption: translate_phrase("decrypt"),
+      decryption: translate_phrase("decrypt"), # pass in split_phrase and type to new module
       key: @key,
       date: @date
     }
   end
 
-  def offset
-    (@date.to_i ** 2).to_s[-4..-1]
+  # TODO: Everything below here should either be in another module together or separate
+
+  def split_phrase # leave this method here, or move it to the translate_phrase module?
+    @phrase.split('')
   end
 
-  def a_shift
-    @key[0..1].to_i + offset[0].to_i
+  def split_key
+    @key.split('')
   end
 
-  def b_shift
-    @key[1..2].to_i + offset[1].to_i
+  def key_values
+    split_key.each_cons(2).map do |key1, key2|
+      "#{key1}#{key2}"
+    end
   end
 
-  def c_shift
-    @key[2..3].to_i + offset[2].to_i
+  def key_offset_values_encrypt
+    key_values.each_with_index.map do |key, index|
+      key.to_i + offset[index].to_i
+    end
   end
 
-  def d_shift
-    @key[3..4].to_i + offset[3].to_i
+  def key_offset_values_decrypt
+    key_offset_values_encrypt.map do |key|
+      key * -1
+    end
   end
 
   def translate_phrase(shift_type)
-    count = 1
+    index = 0
     split_phrase.reduce("") do |new_phrase, letter|
-      new_phrase += convert_letter(letter, count, shift_type)
-      count = 0 if count == 4
-      count += 1
+      index = 0 if index == 4
+      new_phrase += convert_letter(letter, index, shift_type)
+      index += 1
       new_phrase
     end
   end
 
-  def split_phrase
-    @phrase.split('')
-  end
-
-  def convert_letter(letter, count, shift_type)
+  def convert_letter(letter, index, shift_type)
     if shift_type == "encrypt"
-      encrypt_character(shift(count), letter)
+      encrypt_character(key_offset_values_encrypt[index], letter)
     else
-      encrypt_character(-shift(count), letter)
+      encrypt_character(key_offset_values_decrypt[index], letter)
     end
   end
 
-  def shift(count)
-    case count
-    when 1
-      a_shift
-    when 2
-      b_shift
-    when 3
-      c_shift
-    when 4
-      d_shift
-    end
+  def offset
+    (@date.to_i ** 2).to_s[-4..-1]
   end
 end
