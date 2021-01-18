@@ -42,7 +42,7 @@ class TranslateMessage
   end
 
   def key_values
-    consecutive_keys.map do |key1, key2|
+    @_key_values ||= consecutive_keys.map do |key1, key2|
       "#{key1}#{key2}"
     end
   end
@@ -56,13 +56,13 @@ class TranslateMessage
   end
 
   def encryption_shifts
-    index_key_values.map do |key, index|
+    @_encryption_shifts ||= index_key_values.map do |key, index|
       key.to_i + offset[index].to_i
     end
   end
 
   def decryption_shifts
-    encryption_shifts.map do |key|
+    @_decryption_shifts ||= encryption_shifts.map do |key|
       key * -1
     end
   end
