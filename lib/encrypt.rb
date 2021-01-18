@@ -1,8 +1,16 @@
 require_relative 'enigma'
 
-file = File.open(ARGV[0])
-message_to_encrypt = file.read.chomp
-encrypt_hash = Enigma.encrypt(message_to_encrypt, "02715", "040895")
-write_to_file = ARGV[1]
-encrypted =  File.write(write_to_file, encrypt_hash[:encryption])
-puts "Created '#{write_to_file}' with the key #{encrypt_hash[:key]} and date #{encrypt_hash[:date]}"
+read_file = File.open(ARGV[0])
+write_file = ARGV[1]
+
+message_to_encrypt = read_file.read.chomp
+enigma = Enigma.new
+
+encrypted = enigma.encrypt(message_to_encrypt)
+
+encryption = encrypted[:encryption]
+key = encrypted[:key]
+date = encrypted[:date]
+
+File.write(write_file, encryption)
+puts "Created '#{write_file}' with the key #{key} and date #{date}"
