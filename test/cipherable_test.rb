@@ -1,11 +1,11 @@
 require './test/test_helper'
-require './lib/cipher'
+require './lib/cipherable'
 
 class MockEncrypt
-  include Cipher
+  include Cipherable
 end
 
-class CipherTest < Minitest::Test
+class CipherableTest < Minitest::Test
   def setup
     @encrypt = MockEncrypt.new
   end
