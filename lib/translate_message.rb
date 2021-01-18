@@ -69,19 +69,19 @@ class TranslateMessage
 
   def translate_phrase(shift_type)
     index = 0
-    split_phrase.reduce('') do |new_phrase, letter|
+    split_phrase.reduce('') do |new_phrase, character|
       index = 0 if index == 4
-      new_phrase += convert_letter(shift_type, letter, index)
+      new_phrase += convert_letter(shift_type, character, index)
       index += 1
       new_phrase
     end
   end
 
-  def convert_letter(shift_type, letter, index)
+  def convert_letter(shift_type, character, index)
     if shift_type == 'encrypt'
-      cipher_character(key_offset_values_encrypt[index], letter)
+      cipher_character(key_offset_values_encrypt[index], character)
     else
-      cipher_character(key_offset_values_decrypt[index], letter)
+      cipher_character(key_offset_values_decrypt[index], character)
     end
   end
 end

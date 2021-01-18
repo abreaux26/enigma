@@ -34,7 +34,7 @@ class EnigmaTest < Minitest::Test
     assert_equal 6, @enigma.encrypt('hello world')[:date].length
   end
 
-  def test_default_date_encrypt
+  def test_default_date_decrypt
     assert_instance_of String, @enigma.decrypt('keder ohulw', '02715')[:date]
     assert_equal 6, @enigma.decrypt('keder ohulw', '02715')[:date].length
   end
