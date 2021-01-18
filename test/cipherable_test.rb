@@ -35,4 +35,8 @@ class CipherableTest < Minitest::Test
   def test_encrypt_character
     assert_equal 'k', @encrypt.encrypt_character(3, 'h')
   end
+
+  def test_encrypt_character_nil
+    assert_equal '!', @encrypt.encrypt_character(20, '!')
+  end
 end

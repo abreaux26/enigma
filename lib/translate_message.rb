@@ -43,6 +43,10 @@ class TranslateMessage
     end
   end
 
+  def offset
+    (@date.to_i ** 2).to_s[-4..-1]
+  end
+
   def key_offset_values_encrypt
     key_values.each_with_index.map do |key, index|
       key.to_i + offset[index].to_i
@@ -71,9 +75,5 @@ class TranslateMessage
     else
       encrypt_character(key_offset_values_decrypt[index], letter)
     end
-  end
-
-  def offset
-    (@date.to_i ** 2).to_s[-4..-1]
   end
 end
