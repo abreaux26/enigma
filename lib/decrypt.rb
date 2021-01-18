@@ -3,14 +3,14 @@ require_relative 'enigma'
 read_file = File.open(ARGV[0])
 write_file = ARGV[1]
 key = ARGV[2]
+date = ARGV[3]
 
 if key.nil?
   return puts 'Error! Need key to decrypt!'
 end
 
-date = ARGV[3]
-enigma = Enigma.new
 ciphertext = read_file.read.chomp
+enigma = Enigma.new
 
 if date.nil?
   decrypted = enigma.decrypt(ciphertext, key)
