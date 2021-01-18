@@ -1,41 +1,27 @@
 require './test/test_helper'
+require './lib/encrypt_message'
 require './lib/enigma'
 
 class EnigmaTest < Minitest::Test
-  def setup
-    @enigma = Enigma.new
-  end
-
   def test_encrypt
+    enigma = Enigma.encrypt("hello world", "02715", "040895")
+
     expected = {
-      encryption: 'keder ohulw',
-      key: '02715',
-      date: '040895'
+      encryption: "keder ohulw",
+      key: "02715",
+      date: "040895"
     }
-    assert_equal expected, @enigma.encrypt('hello world', '02715', '040895')
+    assert_equal expected, enigma
   end
 
   def test_decrypt
+    enigma = Enigma.decrypt("keder ohulw", "02715", "040895")
+
     expected = {
-      decryption: 'hello world',
-      key: '02715',
-      date: '040895'
+      decryption: "hello world",
+      key: "02715",
+      date: "040895"
     }
-    assert_equal expected, @enigma.decrypt('keder ohulw', '02715', '040895')
-  end
-
-  def test_default_key_encrypt
-    assert_instance_of String, @enigma.encrypt('hello world')[:key]
-    assert_equal 5, @enigma.encrypt('hello world')[:key].length
-  end
-
-  def test_default_date_encrypt
-    assert_instance_of String, @enigma.encrypt('hello world')[:date]
-    assert_equal 6, @enigma.encrypt('hello world')[:date].length
-  end
-
-  def test_default_date_decrypt
-    assert_instance_of String, @enigma.decrypt('keder ohulw', '02715')[:date]
-    assert_equal 6, @enigma.decrypt('keder ohulw', '02715')[:date].length
+    assert_equal expected, enigma
   end
 end
