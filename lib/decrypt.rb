@@ -1,10 +1,26 @@
 require_relative 'enigma'
 
-file = File.open(ARGV[0])
-message_to_decrypt = file.read.chomp
+read_file = File.open(ARGV[0])
+write_file = ARGV[1]
 key = ARGV[2]
 date = ARGV[3]
-decrypt_hash = Enigma.decrypt(message_to_decrypt, key, date)
-write_to_file = ARGV[1]
-decrypted =  File.write(write_to_file, decrypt_hash[:decryption])
-puts "Created '#{write_to_file}' with the key #{key} and date #{date}"
+
+if key.nil?
+  return puts 'Error! Need key to decrypt!'
+end
+
+ciphertext = read_file.read.chomp
+enigma = Enigma.new
+
+if date.nil?
+  decrypted = enigma.decrypt(ciphertext, key)
+else
+  decrypted = enigma.decrypt(ciphertext, key, date)
+end
+
+decryption = decrypted[:decryption]
+key = decrypted[:key]
+date = decrypted[:date]
+
+File.write(write_file, decryption)
+puts "Created '#{write_file}' with the key #{key} and date #{date}"
