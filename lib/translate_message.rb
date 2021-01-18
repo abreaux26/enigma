@@ -71,13 +71,13 @@ class TranslateMessage
     index = 0
     split_phrase.reduce('') do |new_phrase, character|
       index = 0 if index == 4
-      new_phrase += convert_letter(shift_type, character, index)
+      new_phrase += convert_letter(shift_type, index, character)
       index += 1
       new_phrase
     end
   end
 
-  def convert_letter(shift_type, character, index)
+  def convert_letter(shift_type, index, character)
     if shift_type == 'encrypt'
       cipher_character(encryption_shifts[index], character)
     else

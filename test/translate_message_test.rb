@@ -12,27 +12,7 @@ class TranslateMessageTest < Minitest::Test
     assert_instance_of TranslateMessage, @decrypt
   end
 
-  def test_it_has_readable_attributes_encrypt
-    assert_equal 'hello world', @encrypt.phrase
-    assert_equal '02715', @encrypt.key
-    assert_equal '040895', @encrypt.date
-  end
-
-  def test_it_has_readable_attributes_decrypt
-    assert_equal 'keder ohulw', @decrypt.phrase
-    assert_equal '02715', @decrypt.key
-    assert_equal '040895', @decrypt.date
-  end
-
-  def test_split_phrase
-    expected_encrypt = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
-    expected_decrypt = ['k', 'e', 'd', 'e', 'r', ' ', 'o', 'h', 'u', 'l', 'w']
-
-    assert_equal expected_encrypt, @encrypt.split_phrase
-    assert_equal expected_decrypt, @decrypt.split_phrase
-  end
-
-  def test_split_keys
+  def test_split_key
     expected_keys = ['0', '2', '7', '1', '5']
 
     assert_equal expected_keys, @encrypt.split_key
@@ -46,22 +26,17 @@ class TranslateMessageTest < Minitest::Test
     assert_equal expected_keys, @decrypt.key_values
   end
 
-  def test_key_offset_values_encrypt
-    expected = [3, 27, 73, 20]
-
-    assert_equal expected, @encrypt.encryption_shifts
-    assert_equal expected, @decrypt.encryption_shifts
-  end
-
-  def test_key_offset_values_decrypt
-    expected = [-3, -27, -73, -20]
-
-    assert_equal expected, @encrypt.decryption_shifts
-    assert_equal expected, @decrypt.decryption_shifts
-  end
-
   def test_offset
     assert_equal '1025', @encrypt.offset
+    assert_equal '1025', @decrypt.offset
+  end
+
+  # Encryption Tests
+
+  def test_it_has_readable_attributes_encrypt
+    assert_equal 'hello world', @encrypt.phrase
+    assert_equal '02715', @encrypt.key
+    assert_equal '040895', @encrypt.date
   end
 
   def test_encrypt
@@ -74,6 +49,34 @@ class TranslateMessageTest < Minitest::Test
     assert_equal expected, @encrypt.encrypt
   end
 
+  def test_split_phrase_encrypt
+    expected_encrypt = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+
+    assert_equal expected_encrypt, @encrypt.split_phrase
+  end
+
+  def test_encryption_shifts
+    expected = [3, 27, 73, 20]
+
+    assert_equal expected, @encrypt.encryption_shifts
+  end
+
+  def test_translate_phrase_encrypt
+    assert_equal 'keder ohulw', @encrypt.translate_phrase('encrypt')
+  end
+
+  def test_convert_letter_encrypt
+    assert_equal 'k', @encrypt.convert_letter('encrypt', 0, 'h')
+  end
+
+  # Decryption Tests
+
+  def test_it_has_readable_attributes_decrypt
+    assert_equal 'keder ohulw', @decrypt.phrase
+    assert_equal '02715', @decrypt.key
+    assert_equal '040895', @decrypt.date
+  end
+
   def test_decrypt
     expected = {
       decryption: 'hello world',
@@ -84,8 +87,23 @@ class TranslateMessageTest < Minitest::Test
     assert_equal expected, @decrypt.decrypt
   end
 
-  def test_translate_phrase
-    assert_equal 'keder ohulw', @encrypt.translate_phrase('encrypt')
+  def test_split_phrase_decrypt
+    expected_decrypt = ['k', 'e', 'd', 'e', 'r', ' ', 'o', 'h', 'u', 'l', 'w']
+
+    assert_equal expected_decrypt, @decrypt.split_phrase
+  end
+
+  def test_decryption_shifts
+    expected = [-3, -27, -73, -20]
+
+    assert_equal expected, @decrypt.decryption_shifts
+  end
+
+  def test_translate_phrase_decrypt
     assert_equal 'hello world', @decrypt.translate_phrase('decrypt')
+  end
+
+  def test_convert_letter_encrypt
+    assert_equal 'h', @decrypt.convert_letter('decrypt', 0, 'k')
   end
 end
