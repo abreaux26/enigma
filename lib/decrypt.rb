@@ -18,5 +18,9 @@ else
   decrypted = enigma.decrypt(ciphertext, key, date)
 end
 
-File.write(write_file, decrypted[:decryption])
-puts "Created '#{write_file}' with the key #{decrypted[:key]} and date #{decrypted[:date]}"
+decryption = decrypted[:decryption]
+key = decrypted[:key]
+date = decrypted[:date]
+
+File.write(write_file, decryption)
+puts "Created '#{write_file}' with the key #{key} and date #{date}"
