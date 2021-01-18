@@ -4,11 +4,11 @@ require_relative 'randomable'
 class Enigma
   include Randomable
 
-  def self.encrypt(message, key = random_number, date = Date.today.strftime('%d%m%y'))
+  def encrypt(message, key = random_number, date = Date.today.strftime('%d%m%y'))
     TranslateMessage.new(message, key, date).encrypt
   end
 
-  def self.decrypt(ciphertext, key, date)
+  def decrypt(ciphertext, key, date = Date.today.strftime('%d%m%y'))
     TranslateMessage.new(ciphertext, key, date).decrypt
   end
 end
