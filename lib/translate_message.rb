@@ -51,6 +51,10 @@ class TranslateMessage
     @_index_key_values ||= key_values.each_with_index
   end
 
+  def index_phrase_values
+    @_index_phrase_values ||= split_phrase.each_with_index
+  end
+
   def offset
     @_offset ||= (@date.to_i ** 2).to_s[-4..-1]
   end
@@ -68,20 +72,17 @@ class TranslateMessage
   end
 
   def translate_phrase(shift_type)
-    index = 0
-    split_phrase.reduce('') do |new_phrase, character|
-      index = 0 if index == 4
-      new_phrase += convert_letter(shift_type, index, character)
-      index += 1
-      new_phrase
+    index_phrase_values.reduce('') do |new_phrase, (character, index)|
+      rotation = index % 4
+      new_phrase += convert_letter(shift_type, rotation, character)
     end
   end
 
-  def convert_letter(shift_type, index, character)
+  def convert_letter(shift_type, rotation, character)
     if shift_type == 'encrypt'
-      cipher_character(encryption_shifts[index], character)
+      cipher_character(encryption_shifts[rotation], character)
     else
-      cipher_character(decryption_shifts[index], character)
+      cipher_character(decryption_shifts[rotation], character)
     end
   end
 end
