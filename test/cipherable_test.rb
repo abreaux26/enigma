@@ -15,7 +15,7 @@ class CipherableTest < Minitest::Test
   end
 
   def character_set
-    expected = ("a".."z").to_a << " "
+    expected = ('a'..'z').to_a << ' '
     assert_equal expected, @encrypt.character_set
   end
 

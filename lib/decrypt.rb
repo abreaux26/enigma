@@ -9,7 +9,7 @@ enigma = Enigma.new
 message_to_decrypt = file.read.chomp
 
 if key.nil?
-  return puts "Error! Need key to decrypt!"
+  return puts 'Error! Need key to decrypt!'
 end
 
 if date.nil?

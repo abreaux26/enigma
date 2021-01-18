@@ -15,7 +15,7 @@ class TranslateMessage
 
   def encrypt
     {
-      encryption: translate_phrase("encrypt"), # pass in split_phrase and type to new module
+      encryption: translate_phrase('encrypt'),
       key: @key,
       date: @date
     }
@@ -23,15 +23,13 @@ class TranslateMessage
 
   def decrypt
     {
-      decryption: translate_phrase("decrypt"), # pass in split_phrase and type to new module
+      decryption: translate_phrase('decrypt'),
       key: @key,
       date: @date
     }
   end
 
-  # TODO: Everything below here should either be in another module together or separate
-
-  def split_phrase # leave this method here, or move it to the translate_phrase module?
+  def split_phrase
     @phrase.split('')
   end
 
@@ -59,7 +57,7 @@ class TranslateMessage
 
   def translate_phrase(shift_type)
     index = 0
-    split_phrase.reduce("") do |new_phrase, letter|
+    split_phrase.reduce('') do |new_phrase, letter|
       index = 0 if index == 4
       new_phrase += convert_letter(letter, index, shift_type)
       index += 1
@@ -68,7 +66,7 @@ class TranslateMessage
   end
 
   def convert_letter(letter, index, shift_type)
-    if shift_type == "encrypt"
+    if shift_type == 'encrypt'
       encrypt_character(key_offset_values_encrypt[index], letter)
     else
       encrypt_character(key_offset_values_decrypt[index], letter)
