@@ -1,5 +1,6 @@
 require_relative 'translate_message'
 require_relative 'randomable'
+require 'date'
 
 class Enigma
   include Randomable
