@@ -11,7 +11,7 @@ module Cipherable
    character_set.rotate(shift_value).to_a
   end
 
-  def encrypt_character(shift_value, letter)
+  def cipher_character(shift_value, letter)
     if index_of_character(letter).nil?
       letter
     else

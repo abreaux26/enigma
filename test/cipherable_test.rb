@@ -8,6 +8,7 @@ end
 class CipherableTest < Minitest::Test
   def setup
     @encrypt = MockEncrypt.new
+    @decrypt = MockEncrypt.new
   end
 
   def test_it_exists
@@ -33,21 +34,27 @@ class CipherableTest < Minitest::Test
   end
 
   def test_shift_character_set_decrypt
-    decrypt = MockEncrypt.new
-
     expected = [
       'y', 'z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
       'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
     ]
-    assert_equal expected, decrypt.shift_character_set(-3)
+    assert_equal expected, @decrypt.shift_character_set(-3)
   end
 
   def test_encrypt_character
-    assert_equal 'k', @encrypt.encrypt_character(3, 'h')
+    assert_equal 'k', @encrypt.cipher_character(3, 'h')
+  end
+
+  def test_decrypt_character
+    assert_equal 'h', @encrypt.cipher_character(-3, 'k')
   end
 
   def test_encrypt_character_nil
-    assert_equal '!', @encrypt.encrypt_character(20, '!')
+    assert_equal '!', @encrypt.cipher_character(20, '!')
+  end
+
+  def test_decrypt_character_nil
+    assert_equal '!', @decrypt.cipher_character(-20, '!')
   end
 end
