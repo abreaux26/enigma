@@ -12,6 +12,10 @@ module Cipher
   end
 
   def encrypt_character(shift_value, letter)
-    shift_character_set(shift_value)[index_of_character(letter)]
+    if index_of_character(letter).nil?
+      letter
+    else
+      shift_character_set(shift_value)[index_of_character(letter)]
+    end
   end
 end
