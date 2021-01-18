@@ -55,14 +55,14 @@ class TranslateMessage
     @_offset ||= (@date.to_i ** 2).to_s[-4..-1]
   end
 
-  def key_offset_values_encrypt
+  def encryption_shifts
     index_key_values.map do |key, index|
       key.to_i + offset[index].to_i
     end
   end
 
-  def key_offset_values_decrypt
-    key_offset_values_encrypt.map do |key|
+  def decryption_shifts
+    encryption_shifts.map do |key|
       key * -1
     end
   end
@@ -79,9 +79,9 @@ class TranslateMessage
 
   def convert_letter(shift_type, character, index)
     if shift_type == 'encrypt'
-      cipher_character(key_offset_values_encrypt[index], character)
+      cipher_character(encryption_shifts[index], character)
     else
-      cipher_character(key_offset_values_decrypt[index], character)
+      cipher_character(decryption_shifts[index], character)
     end
   end
 end

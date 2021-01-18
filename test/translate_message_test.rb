@@ -49,15 +49,15 @@ class TranslateMessageTest < Minitest::Test
   def test_key_offset_values_encrypt
     expected = [3, 27, 73, 20]
 
-    assert_equal expected, @encrypt.key_offset_values_encrypt
-    assert_equal expected, @decrypt.key_offset_values_encrypt
+    assert_equal expected, @encrypt.encryption_shifts
+    assert_equal expected, @decrypt.encryption_shifts
   end
 
   def test_key_offset_values_decrypt
     expected = [-3, -27, -73, -20]
 
-    assert_equal expected, @encrypt.key_offset_values_decrypt
-    assert_equal expected, @decrypt.key_offset_values_decrypt
+    assert_equal expected, @encrypt.decryption_shifts
+    assert_equal expected, @decrypt.decryption_shifts
   end
 
   def test_offset
